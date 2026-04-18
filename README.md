@@ -12,7 +12,7 @@ decision variable indices, computation of derivatives.
 4. solve using any of Uno's solver
 
 Examples are contained in casuno.py. Race car problem from casadi's repository and move block example from Mathew Kelly's
-collocation paper are solver. 
+collocation paper are solved. 
 
 Limitation
 1. hessian operator needs more testing
