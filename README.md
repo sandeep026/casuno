@@ -5,7 +5,6 @@ decision variable indices, computation of derivatives.
 
 (uno interface for casadi is still in developement as of 19-4-26)
 
-
 1. model optimization problem in casadi's opti
 2. extract derivatives hassle free using AD
 3. pass NLP information to unopy model
@@ -16,6 +15,9 @@ collocation paper are solved.
 
 Limitation
 1. hessian operator needs more testing
+
+The code was was test on a windows machine. Added 'chcp 65001' for unicode support in command line for my machine. Remove this line if
+this causes any errors.
 
 **This is an early stage prototype code and has not been throughly tested.**
 Happy to make changes to improve reliability of the code.
