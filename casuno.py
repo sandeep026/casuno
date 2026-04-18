@@ -3,8 +3,11 @@ import casadi as cs
 import unopy
 from typing import Any
 import subprocess
-#get unicode working in cmd
+
 subprocess.run('chcp 65001',shell=True)
+
+def get_initial(opti:cs.Opti)->list:
+    return opti.debug.value(opti.x,opti.initial()).flatten().tolist()
 
 def opti2unomodel(opti:cs.Opti,x0:list)->Any:
     """
@@ -148,7 +151,7 @@ def kelly()->tuple:
     opti.set_initial(opti.x,cs.DM.ones(opti.nx,1))
     #opti.solver("ipopt",{'ipopt.hessian_approximation':'limited-memory'}) # set numerical backend
     #sol = opti.solve()
-    return opti, opti.debug.value(opti.x,opti.initial()).flatten().tolist()
+    return opti, get_initial(opti=opti)
 
 def racecar()->tuple:
     '''
@@ -163,7 +166,7 @@ def racecar()->tuple:
     tuple
         (opti,initial guess)
     '''
-    N = 500
+    N = 1000
     opti = cs.Opti() 
     X = opti.variable(2,N+1)
     pos   = X[0,:]
@@ -192,8 +195,23 @@ def racecar()->tuple:
     opti.set_initial(T, 1)
     #opti.solver("ipopt",{'ipopt.hessian_approximation':'limited-memory'}) # set numerical backend
     #sol = opti.solve()
-    return opti, opti.debug.value(opti.x,opti.initial()).flatten().tolist()
+    return opti, get_initial(opti=opti)
 
+def hs015():
+    # optimal value -306.5
+    opti = cs.Opti()
+
+    x = opti.variable()
+    y = opti.variable()
+    objective = 100 * (y - x**2)**2 + (1 - x)**2
+    opti.minimize(objective)
+    opti.subject_to(x * y >= 1)
+    opti.subject_to(x + y**2 >= 0)
+    opti.subject_to(x <= 0.5)
+    opti.set_initial(x, -2)
+    opti.set_initial(y, 1)
+
+    return opti, get_initial(opti=opti)
 
 if __name__ == '__main__':
     opti,x0=racecar()
@@ -202,6 +220,7 @@ if __name__ == '__main__':
     # create solver class and configure
     solver = unopy.UnoSolver()
     solver.set_preset('filtersqp')
+    solver.set_option("QP_solver", "BQPD")
     #by default bfgs
     solver.set_option("hessian_model", "exact")
     #solve the problem
