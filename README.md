@@ -14,7 +14,8 @@ Examples are contained in casuno.py. Race car problem from casadi's repository a
 collocation paper are solved. 
 
 Limitation
-1. hessian operator needs more testing
+1. hessian vector product operator needs more testing
+2. For very large problems, overheads in  function evaluation
 
 The code was was test on a windows machine. Added 'chcp 65001' for unicode support in command line for my machine. Remove this line if
 this causes any errors.
