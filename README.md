@@ -15,7 +15,8 @@ collocation paper are solved.
 
 Limitation
 1. hessian vector product operator needs more testing
-2. For very large problems, overheads in  function evaluation
+2. For very large problems, overheads in  function evaluation (DM->np.andarray->flatten)
+3. opti does not model simple bounds. hence the simple bounds are implemented in casuno as nonlinear constraints (inefficient)
 
 The code was was test on a windows machine. Added 'chcp 65001' for unicode support in command line for my machine. Remove this line if
 this causes any errors.
