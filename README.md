@@ -22,8 +22,8 @@ Modeling optimization problems often involves tedious index bookkeeping and manu
 ### Requirements
 
 - python ^3.11
-- casadi
-- unopy
+- casadi 3.7.2
+- unopy 0.4.5
 
 ### Quick Start
 
