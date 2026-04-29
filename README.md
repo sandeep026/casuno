@@ -1,30 +1,55 @@
 # **casuno**
-A wrapper to solve optimization problems modelled in casadi's opti in modular NLP solver Uno.
-As optimization problem is modeled in opti, user does not have to worry about book-keeping
-decision variable indices, computation of derivatives. 
+casuno is a lightweight Python wrapper designed to bridge the gap between CasADi's intuitive Opti modeling interface and the Uno modular NLP solver.
+
+Modeling optimization problems often involves tedious index bookkeeping and manual derivative setup. casuno lets you model in the user-friendly Opti stack and solve using the advanced, filter-based SQP and interior-point methods of Uno, all while CasADi handles the heavy lifting of Automatic Differentiation (AD) behind the scenes.
+
+**Status**: Early-stage prototype (as of April 2026). This is experimental code and has not been thoroughly stress-tested for production environments.
 
 (uno interface for casadi is still in developement as of 19-4-26)
 
-1. model optimization problem in casadi's opti
-2. extract derivatives hassle free using AD
-3. pass NLP information to unopy model
-4. solve using any of Uno's solver
+### Key Features
+- Hassle-free Modeling: Use `opti.variable()`, `opti.subject_to()`, and `opti.minimize()` without worrying about vector indices.
+- Automatic Derivatives: Leverages CasADi's high-performance AD to provide gradients and Jacobians to Uno.
+- Modular Solving: Easily switch between Uno's presets (like filtersqp) and configurations.
+- unopy Integration: Seamlessly transforms CasADi problem structures into unopy models.
+
+### Workflow
+- Model your NLP using CasADi's Opti interface.
+- Convert the problem into a unopy compatible model via `opti2unomodel()`.
+- Configure your Uno solver (presets, Hessian models, etc.).
+- Solve and extract results as standard NumPy arrays.
+
+### Requirements
+
+- python ^3.11
+- casadi
+- unopy
+
+### Quick Start
 
 Examples are contained in casuno.py. Race car problem from casadi's repository and move block example from Mathew Kelly's
 collocation paper are solved. 
 
-Limitation
-1. hessian vector product operator needs more testing
-2. For very large problems, overheads in  function evaluation (DM->np.andarray->flatten)
-3. opti does not model simple bounds. hence the simple bounds are implemented in casuno as nonlinear constraints (inefficient)
+### Limitation
 
-The code was was test on a windows machine. Added 'chcp 65001' for unicode support in command line for my machine. Remove this line if
-this causes any errors.
+While functional, casuno is still in active development. Please keep the following in mind:
+- Simple Bounds: Opti does not treat simple variable bounds ($\underline{x} \le x \le \bar{x}$) differently from general constraints. Consequently, casuno implements these as nonlinear constraints, which is less efficient than native solver bounds.
+- Overhead: For extremely large-scale problems, the data conversion layer (CasADi DM ➔ NumPy ➔ Flattened C-style) may introduce noticeable overhead.
+- Hessian Vector Products: The HVP operator is implemented but requires further verification for edge cases.
 
-**This is an early stage prototype code and has not been throughly tested.**
-Happy to make changes to improve reliability of the code.
+### Environment Note
+This code was developed and tested on Windows. Remove `chp 65001` from `casuno.py` if it causes errors on your system.
 
-## Code
+### Quick start
+
+The repository includes:
+
+- Race Car Problem: A classic trajectory optimization benchmark from the CasADi repository.
+- Move Block: Implementation of the collocation example from Matthew Kelly’s "How to do your own direct collocation"
+- hs015: Hock-Schittkowski suite
+
+#### code
+
 ```python
 opti,x0=racecar()
 #generate unopy model of NLP from opti
@@ -44,7 +69,7 @@ print('iterations',result.number_iterations)
 print('x',result.primal_solution)
 ```
 
-## Output
+#### Output
 
 ```bash
 Active code page: 65001
