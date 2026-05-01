@@ -21,8 +21,15 @@ jobs:
           # Hardcoded to 3.11
           python-version: '3.11'
 
-      - name: Install Poetry
-        run: pip install ".[dev]"
+      - name: Install main dep
+        run: pip install .
+
+      - name: Install main dev dep
+        run: pip install "pytest==9.0.3"
+        run: pip install "pytest-cov==7.1.0"
+        run: pip install "ruff==0.15.12"
+
+        
 
       - name: Lint with Ruff
         run: ruff check .
