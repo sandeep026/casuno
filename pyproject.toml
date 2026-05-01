@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "casuno"
+version = "0.1.0"
+description = "a python interface from casadi.Opti() to unopy()"
+authors = ["sandeep <rskravi15@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+casadi = "^3.7.2"
+unopy = "^0.4.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
