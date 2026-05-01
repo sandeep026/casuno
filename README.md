@@ -55,7 +55,9 @@ The repository includes:
 
 - `opti_problems.py` -  opti models are created here and stored in a dict registry
 - `test.py` - solves the optimization within casadi's IPOPT and unopy's IPOPT present and checks
-- `examples.py` - use this run all the problems (nlp an Ocps) from `opti_problem.py`
+- `examples.py` - use this run all the problems (nlp and Ocps) from `opti_problem.py`
+
+The code below runs IPOPT from casadi and IPOPT preset from unopy to solve the set of NLPs.
 
 #### code
 
