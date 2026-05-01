@@ -2,7 +2,8 @@
    <img src="casunologo.png" alt="Uno" width="100%" />
 </p>
 
-# **casuno**
+## **CasUno**
+
 casuno is a lightweight Python wrapper designed to bridge the gap between CasADi's intuitive Opti modeling interface and the Uno modular NLP solver.
 
 Modeling optimization problems often involves tedious index bookkeeping and manual derivative setup. casuno lets you model in the user-friendly Opti stack and solve using the advanced, filter-based SQP and interior-point methods of Uno, all while CasADi handles the heavy lifting of Automatic Differentiation (AD) behind the scenes.
@@ -12,28 +13,31 @@ Modeling optimization problems often involves tedious index bookkeeping and manu
 (uno interface for casadi is still in developement as of 19-4-26)
 
 ### Key Features
+
 - Hassle-free Modeling: Use `opti.variable()`, `opti.subject_to()`, and `opti.minimize()` without worrying about vector indices.
 - Automatic Derivatives: Leverages CasADi's high-performance AD to provide gradients and Jacobians to Uno.
 - Modular Solving: Easily switch between Uno's presets (like filtersqp) and configurations.
 - unopy Integration: Seamlessly transforms CasADi problem structures into unopy models.
 
 ### Workflow
+
 - Model your NLP using CasADi's Opti interface.
 - Convert the problem into a unopy compatible model via `opti2unomodel()`.
 - Configure your Uno solver (presets, Hessian models, etc.).
 - Solve and extract results as standard NumPy arrays.
 
 ### Requirements
+
 Refer to the `.toml` file for details.
 
 - python ^3.11
 - casadi 3.7.2
 - unopy 0.4.5
 
-
 ### Limitation
 
 While functional, casuno is still in active development. Please keep the following in mind:
+
 - Simple Bounds: Opti does not treat simple variable bounds ($\underline{x} \le x \le \bar{x}$) differently from general constraints. Consequently, casuno implements these as nonlinear constraints, which is less efficient than native solver bounds.
 - Overhead: For extremely large-scale problems, the data conversion layer (CasADi DM ➔ NumPy ➔ Flattened C-style) may introduce noticeable overhead.
 - Hessian Vector Products: The HVP operator is implemented but requires further verification for edge cases.
@@ -49,9 +53,9 @@ The repository includes:
 - Move Block: Implementation of the collocation example from Matthew Kelly’s "How to do your own direct collocation"
 - hs015: Hock-Schittkowski suite
 
-* `opti_problems.py` -  opti models are created here and stored in a dict registry
-* `test.py` - solves the optimization within casadi's IPOPT and unopy's IPOPT present and checks
-* `examples.py` - use this run all the problems (nlp an Ocps) from `opti_problem.py`
+- `opti_problems.py` -  opti models are created here and stored in a dict registry
+- `test.py` - solves the optimization within casadi's IPOPT and unopy's IPOPT present and checks
+- `examples.py` - use this run all the problems (nlp an Ocps) from `opti_problem.py`
 
 #### code
 
