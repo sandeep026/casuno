@@ -34,6 +34,45 @@ Refer to the `.toml` file for details.
 - casadi 3.7.2
 - unopy 0.4.5
 
+To run the tests `pytest must be installed`.
+
+### Installation
+
+#### pip based
+
+```bash
+pip install git+https://github.com/sandeep026/casuno.git
+```
+
+clone repository and move to its root in terminal.
+
+```bash
+pip install .
+```
+
+#### poetry (Recommended)
+
+clone repository and move to its root in terminal.
+
+```bash
+poetry install
+```
+
+#### verify install
+
+##### poetry
+
+```bash
+poetry run python examples.py
+```
+
+##### python
+
+```bash
+python examples.py
+```
+
+
 ### Limitation
 
 While functional, casuno is still in active development. Please keep the following in mind:
