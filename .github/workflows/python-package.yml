@@ -22,7 +22,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Poetry
-        run: pip install ".[dev,test]"
+        run: pip install ".[dev]"
 
       - name: Lint with Ruff
         run: ruff check .
