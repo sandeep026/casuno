@@ -40,14 +40,18 @@ To run the tests `pytest must be installed`.
 
 #### pip based
 
-```bash
-pip install git+https://github.com/sandeep026/casuno.git
-```
+##### manual
 
 clone repository and move to its root in terminal.
 
 ```bash
 pip install .
+```
+
+Equivalently, run
+
+```bash
+pip install git+https://github.com/sandeep026/casuno.git
 ```
 
 #### poetry (Recommended)
