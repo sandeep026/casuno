@@ -41,9 +41,6 @@ While functional, casuno is still in active development. Please keep the followi
 **Note**: Not a limiation of the wrapper but it is important to construct the NLP using Opti() such that the expression graph is efficient. As this user
 dependent, it adviced to follow best practices mentioned in casadi's Github Wiki.
 
-### Environment Note
-This code was developed and tested on Windows. Remove `chp 65001` from `casuno.py` if it causes errors on your system.
-
 ### Quick start
 
 The repository includes:
