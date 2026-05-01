@@ -1,7 +1,7 @@
 import unopy
 
 from casuno import opti2unomodel, print_stats
-from opti_problems import registry as models
+from casuno.opti_problems import registry as models
 
 # for discrete OCPs the discretization intervals can be set using n
 # solve flag lets u solve nlp from within opti with IPOPT
