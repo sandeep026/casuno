@@ -1,4 +1,4 @@
-name: Python package
+name: Python package (Windows 3.11)
 
 on:
   push:
@@ -8,31 +8,22 @@ on:
 
 jobs:
   test-and-lint:
-    strategy:
-      # If one job fails (e.g., Windows Python 3.9), let the others finish
-      fail-fast: false 
-      matrix:
-        # Define your Operating Systems here
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        # Define your Python versions here
-        python-version: ["3.9", "3.10", "3.11"]
-
-    # Use the OS defined in the matrix for this specific job
-    runs-on: ${{ matrix.os }}
+    # Hardcoded to Windows
+    runs-on: windows-latest
     
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          # Hardcoded to 3.11
+          python-version: '3.11'
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: "1.8.3"
           virtualenvs-create: true
           virtualenvs-in-project: true
 
@@ -41,8 +32,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          # The cache key includes the OS, so Windows, Mac, and Linux don't share the same cache!
-          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          # The key now explicitly references Windows and 3.11
+          key: venv-${{ runner.os }}-3.11-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
@@ -55,9 +46,8 @@ jobs:
         run: |
           poetry run pytest --cov=. --cov-report=xml
 
-      # (Optional) We upload coverage, but prefix the name with the OS and Python version
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-${{ matrix.os }}-py${{ matrix.python-version }}
+          name: coverage-windows-py3.11
           path: coverage.xml
