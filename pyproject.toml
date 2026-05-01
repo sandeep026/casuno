@@ -12,6 +12,9 @@ casadi = "^3.7.2"
 unopy = "^0.4.5"
 
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.3"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
