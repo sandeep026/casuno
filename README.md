@@ -38,8 +38,8 @@ While functional, casuno is still in active development. Please keep the followi
 - Overhead: For extremely large-scale problems, the data conversion layer (CasADi DM ➔ NumPy ➔ Flattened C-style) may introduce noticeable overhead.
 - Hessian Vector Products: The HVP operator is implemented but requires further verification for edge cases.
 
-**Note**: Not a limiation of the wrapper but it is important to construct the NLP using Opti() such that the expression graph is efficient. As this user
-dependent, it adviced to follow best practices mentioned in casadi's Github Wiki.
+**Note**: _Not a limiation of the wrapper but it is important to construct the NLP using Opti() such that the expression graph is efficient. As this user
+dependent, it adviced to follow best practices mentioned in casadi's Github Wiki_.
 
 ### Quick start
 
