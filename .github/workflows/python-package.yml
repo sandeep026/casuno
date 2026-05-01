@@ -26,7 +26,11 @@ jobs:
 
       - name: Install main dev dep
         run: pip install "pytest==9.0.3"
+        
+      - name: Install main dev dep
         run: pip install "pytest-cov==7.1.0"
+      
+      - name: Install main dev dep
         run: pip install "ruff==0.15.12"
 
         
