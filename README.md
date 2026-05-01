@@ -1,3 +1,7 @@
+<p align="center">
+   <img src="casunologo.png" alt="Uno" width="100%" />
+</p>
+
 # **casuno**
 casuno is a lightweight Python wrapper designed to bridge the gap between CasADi's intuitive Opti modeling interface and the Uno modular NLP solver.
 
