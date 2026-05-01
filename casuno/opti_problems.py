@@ -33,7 +33,7 @@ def get_initial(opti: cs.Opti) -> list:
 # solve - create optimization problem in opti and solve with IPOPT
 # test - return the nlp solution from ipopt
 @register
-def kelly_ocp(n=100, solve=False) -> tuple:
+def kelly_ocp(n=200, solve=False) -> tuple:
     """
     kelly block problem
 
@@ -88,7 +88,7 @@ def kelly_ocp(n=100, solve=False) -> tuple:
 
 
 @register
-def racecar_ocp(n=100, solve=False) -> tuple:
+def racecar_ocp(n=200, solve=False) -> tuple:
     """
     racecar problem from casadi repo.
 
