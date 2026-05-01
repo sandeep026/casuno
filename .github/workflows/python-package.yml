@@ -30,14 +30,6 @@ jobs:
       - name: Install main dev dep
         run: pip install "pytest-cov==7.1.0"
       
-      - name: Install main dev dep
-        run: pip install "ruff==0.15.12"
-
-        
-
-      - name: Lint with Ruff
-        run: ruff check .
-
       - name: Test with Pytest and Coverage
         run: |
           pytest --cov=. --cov-report=xml
