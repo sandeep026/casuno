@@ -1,7 +1,7 @@
 import numpy.testing as npt
 import unopy
 
-from opti2unopy import opti2unomodel, print_stats
+from casuno import opti2unomodel, print_stats
 from opti_problems import registry as models
 
 # for discrete OCPs the discretization intervals can be set using n
