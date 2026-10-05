@@ -3,6 +3,10 @@
 casuno bridges the CasADi `Opti` optimization modeling stack with [unopy](https://github.com/cvanaret/Uno)
  , a modular C++ framework for non-linear optimization. It automatically extracts symbolic expressions, sparsity patterns, and callback structures from CasADi `Opti` problems to build native `unopy.Model` instances .
 
+### Update
+
+* Starting with CasADi 3.8+, UNO is officially supported natively, resolving the majority of previous casuno limitations. That said, casuno can still be used if you prefer to test your formulation against the latest unopy release.
+
 ---
 
 ## Key Features
