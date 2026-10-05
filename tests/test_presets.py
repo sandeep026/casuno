@@ -22,8 +22,8 @@ def test_sol_ipopt_unopy(name, func, preset) -> None:
     model = opti2unomodel(opti=opti, x0=x0)
     solver = unopy.UnoSolver()
     solver.set_preset(preset)
-    solver.set_option("hessian_model", "exact")  # better than lbfgs
-    solver.set_option("inertia_correction_strategy", "primal")
+    #solver.set_option("hessian_model", "exact")  # better than lbfgs
+    #solver.set_option("inertia_correction_strategy", "primal")
     result = solver.optimize(model)
     print_stats(result)
     print("-" * 80)
