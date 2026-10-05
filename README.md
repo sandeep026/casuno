@@ -1,6 +1,6 @@
 # casuno
 
-**`casuno`** bridges the **CasADi `Opti**` optimization modeling stack with **Uno (`unopy`)**, a modular C++ framework for non-linear optimization. It automatically extracts symbolic expressions, sparsity patterns, and callback structures from CasADi `Opti` problems to build native `unopy.Model` instances.
+casuno bridges the CasADi `Opti` optimization modeling stack with Uno (`unopy`), a modular C++ framework for non-linear optimization. It automatically extracts symbolic expressions, sparsity patterns, and callback structures from CasADi `Opti` problems to build native `unopy.Model` instances.
 
 ---
 
@@ -15,23 +15,21 @@
 
 ## Prerequisites & Installation
 
-Requires Python 3.8+ along with CasADi, NumPy, and `unopy`.
+1. Python 3.8+
+2. CasADi
+3. NumPy
 
-### pip
+Installation can be done either via pip or poetry (recommended).
 
 ```bash
 pip install git+https://github.com/sandeep026/casuno.git
 ```
 
-### poetry (Recommended)
-
-clone repository and move to its root in terminal.
-
 ```bash
 poetry install
 ```
 
-### verify installation
+Run the following to verify installation.
 
 ```bash
 poetry run python examples.py
@@ -66,9 +64,6 @@ model = opti2unomodel(opti=opti, x0=x0)
 # 3. Configure Uno Solver
 solver = unopy.UnoSolver()
 solver.set_preset("ipopt")
-solver.set_option("hessian_model", "exact")
-solver.set_option("inertia_correction_strategy", "primal")
-
 # 4. Solve and output stats
 result = solver.optimize(model)
 print_stats(result)
@@ -92,7 +87,6 @@ To validate `casuno` against CasADi's built-in IPOPT interface across registered
 
 ```bash
 pytest
-
 ```
 
 ### Limitation
