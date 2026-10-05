@@ -1,56 +1,29 @@
-## **CasUno**
+# casuno
 
-casuno is a lightweight Python wrapper designed to bridge the gap between CasADi's intuitive Opti modeling interface and the Uno modular NLP solver.
+**`casuno`** bridges the **CasADi `Opti**` optimization modeling stack with **Uno (`unopy`)**, a modular C++ framework for non-linear optimization. It automatically extracts symbolic expressions, sparsity patterns, and callback structures from CasADi `Opti` problems to build native `unopy.Model` instances.
 
-Modeling optimization problems often involves tedious index bookkeeping and manual derivative setup. casuno lets you model in the user-friendly Opti stack and solve using the advanced, filter-based SQP and interior-point methods of Uno, all while CasADi handles the heavy lifting of Automatic Differentiation (AD) behind the scenes.
+---
 
-**Status**: Early-stage prototype (as of April 2026). This is experimental code and has not been thoroughly stress-tested for production environments.
+## Key Features
 
-(uno interface for casadi is still in developement as of 19-4-26)
+* **Automated Model Conversion:** Converts CasADi decision vectors, nonlinear objective functions, constraints, and bounds into standard `unopy` models.
+* **Sparsity Extraction:** Automatically determines and maps sparse Jacobian and lower-triangular Hessian sparsity triplets.
+* **Efficient Evaluations:** Generates compiled CasADi numerical callbacks for exact Hessians and Lagrangian Hessian-vector products.
+* **Solver Flexibility:** Works directly with Uno solver presets, including `ipopt` and `filtersqp`.
 
-### Key Features
+---
 
-- Hassle-free Modeling: Use `opti.variable()`, `opti.subject_to()`, and `opti.minimize()` without worrying about vector indices.
-- Automatic Derivatives: Leverages CasADi's high-performance AD to provide gradients and Jacobians to Uno.
-- Modular Solving: Easily switch between Uno's presets (like filtersqp) and configurations.
-- unopy Integration: Seamlessly transforms CasADi problem structures into unopy models.
+## Prerequisites & Installation
 
-### Workflow
+Requires Python 3.8+ along with CasADi, NumPy, and `unopy`.
 
-- Model your NLP using CasADi's Opti interface.
-- Convert the problem into a unopy compatible model via `opti2unomodel()`.
-- Configure your Uno solver (presets, Hessian models, etc.).
-- Solve and extract results as standard NumPy arrays.
-
-### Requirements
-
-Refer to the `.toml` file for details.
-
-- python ^3.11
-- casadi 3.7.2
-- unopy 0.4.5
-
-To run the tests `pytest must be installed`.
-
-### Installation
-
-#### pip based
-
-##### manual
-
-clone repository and move to its root in terminal.
-
-```bash
-pip install .
-```
-
-Equivalently, run
+### pip
 
 ```bash
 pip install git+https://github.com/sandeep026/casuno.git
 ```
 
-#### poetry (Recommended)
+### poetry (Recommended)
 
 clone repository and move to its root in terminal.
 
@@ -58,20 +31,69 @@ clone repository and move to its root in terminal.
 poetry install
 ```
 
-#### verify install
-
-##### poetry
+### verify installation
 
 ```bash
 poetry run python examples.py
 ```
 
-##### python
-
 ```bash
 python examples.py
 ```
 
+---
+
+## Quickstart
+
+```python
+import casadi as cs
+import unopy
+from casuno import opti2unomodel, print_stats
+
+# 1. Define problem with CasADi Opti
+opti = cs.Opti()
+x = opti.variable(2)
+
+opti.minimize((x[0] - 1)**2 + (x[1] - 2.5)**2)
+opti.subject_to(x[0] - 2 * x[1] + 2 >= 0)
+opti.subject_to(-x[0] - 2 * x[1] + 6 >= 0)
+
+x0 = [0.0, 0.0]
+
+# 2. Convert Opti problem to unopy Model
+model = opti2unomodel(opti=opti, x0=x0)
+
+# 3. Configure Uno Solver
+solver = unopy.UnoSolver()
+solver.set_preset("ipopt")
+solver.set_option("hessian_model", "exact")
+solver.set_option("inertia_correction_strategy", "primal")
+
+# 4. Solve and output stats
+result = solver.optimize(model)
+print_stats(result)
+
+```
+
+---
+
+## Core Components
+
+| Component | Functionality |
+| --- | --- |
+| `opti2unomodel(opti, x0)` | Extracts symbols, jacobians, hessians, and sparse indices from `cs.Opti` to initialize and return a `unopy.Model`. |
+| `print_stats(result)` | Prints optimization status, objective value, execution timing, and iteration count from the Uno solution structure. |
+
+---
+
+## Running Benchmarks & Tests
+
+To validate `casuno` against CasADi's built-in IPOPT interface across registered test problems (such as `kelly_ocp`, `racecar_ocp`, and `hs015_nlp`):
+
+```bash
+pytest
+
+```
 
 ### Limitation
 
